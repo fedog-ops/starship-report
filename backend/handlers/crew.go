@@ -9,7 +9,9 @@ import (
 func ListCrew(c *fiber.Ctx) error {
 
 	crew := []models.CrewMember{}
-	database.DB.Db.Find(&crew)
+	if err := database.DB.Db.Preload("Reports").Find(&crew).Error; err!= nil {
+        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": err.Error()})
+    }
 
 	return c.Status(200).JSON(crew)
 }

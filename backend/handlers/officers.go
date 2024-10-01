@@ -13,7 +13,9 @@ func Home(c *fiber.Ctx) error {
 func ListOfficers(c *fiber.Ctx) error {
 
 	facts := []models.Officer{}
-	database.DB.Db.Find(&facts)
+	if err := database.DB.Db.Preload("Reports").Find(&facts).Error; err != nil {
+        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": err.Error()})
+    }
 
 	return c.Status(200).JSON(facts)
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func Home(c *fiber.Ctx) error {
-	return c.SendString("Welcome Aboard!    ->    Available /officers")
+	return c.SendString("Welcome Aboard! -> Available endpoints /officers /crew /reports")
 }
 
 func ListOfficers(c *fiber.Ctx) error {

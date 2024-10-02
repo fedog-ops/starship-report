@@ -40,9 +40,33 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 
 	log.Println("running migrations")
-	db.AutoMigrate(&models.Officer{}, &models.CrewMember{}, &models.Report{})
+	db.AutoMigrate(
+		&models.Officer{}, 
+		&models.CrewMember{}, 
+		&models.Report{}, 
+		&models.Captain{},
+	)
 
 	DB = Dbinstance{
 		Db: db,
+	}
+	createSingletonCaptain(DB.Db)
+}
+
+func createSingletonCaptain(db *gorm.DB) {
+	var captain models.Captain
+	if err := db.First(&captain).Error; err == gorm.ErrRecordNotFound {
+		newCaptain := models.Captain{
+			Name:     "Captain Vader",
+			Email:    "vader@starship.com",
+			Password: "darkside",
+		}
+		if err := db.Create(&newCaptain).Error; err != nil {
+			fmt.Println("Error creating captain:", err)
+		} else {
+			fmt.Println("Captain created successfully")
+		}
+	} else {
+		fmt.Println("Captain already exists:", captain.Name)
 	}
 }

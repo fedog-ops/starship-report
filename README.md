@@ -123,3 +123,37 @@ func MigrateDB(db *gorm.DB) error {
 	return err
 }
 ```
+```JSON
+
+Officers
+
+{
+  "name": "Indy",
+  "email": "ijones@marshallcollege.edu",
+  "password": "ihatesnakes"
+}
+
+
+Crew
+
+{
+  "name": "First crew member"
+}
+
+
+Report
+
+{
+ 	"OfficerID": 1, 
+	"CrewMemberID": 1, 
+	"Content": "You are not very good at this"
+} 
+
+Captain
+
+{
+			Name:     "Captain Vader",
+			Email:    "vader@starship.com",
+			Password: "darkside",
+		}
+```

@@ -4,11 +4,28 @@ import (
 	"api/database"
 	"github.com/gofiber/fiber/v2"
 	"api/handlers"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/basicauth"
 )
 
 func main() {
 	database.ConnectDb() 
 	app := fiber.New()
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     "http://localhost:3001, http://example.com", // Allowed origins
+		AllowMethods:     "GET, POST, PUT, DELETE",                   // Allowed methods
+		AllowHeaders:     "Origin, Content-Type, Authorization",      // Allowed headers
+		AllowCredentials: true,                                       // Whether credentials (cookies, auth headers) are allowed
+	}))
+
+	// Apply Basic Authentication middleware to protected routes
+	app.Use(basicauth.New(basicauth.Config{
+		Users: map[string]string{
+			"admin": "captainvader", // Replace with actual username and password
+			"captain": "darkside",
+		},
+	}))
 
 	SetupRoutes(app)
 

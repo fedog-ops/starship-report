@@ -25,6 +25,7 @@ func SetupRoutes(app *fiber.App){
 	
 	app.Get("/reports", handlers.ListReports)
 	app.Post("/reports", handlers.CreateReport)
+	app.Put("/reports/:reportId", handlers.EditReport)
 
 	app.Get("/captain", handlers.ListCaptain)
 	app.Get("/hellocap", handlers.HelloCap)

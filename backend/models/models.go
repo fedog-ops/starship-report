@@ -1,6 +1,9 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Officer struct {
 	gorm.Model
@@ -28,10 +31,7 @@ type Report struct {
 	OfficerID     uint      `gorm:"not null"` 
 	CrewMemberID  uint      `gorm:"not null"` 
 	Content       string    `gorm:"type:text;not null"` 
-	//Timestamp     time.Time `gorm:"autoCreateTime"`     // Time-stamped when created
-	//LastEditedAt  time.Time // Tracks last edit time
+	Timestamp     time.Time `gorm:"autoCreateTime"`
+	LastEditedAt  time.Time // Tracks last edit time
 	IsEditable    bool      `gorm:"default:true"` 
 }
-
-
-// Reports []Report `gorm:"foreignKey:CrewMemberID",constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`

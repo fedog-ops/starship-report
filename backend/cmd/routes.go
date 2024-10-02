@@ -16,5 +16,6 @@ func SetupRoutes(app *fiber.App){
 	app.Get("/reports", handlers.ListReports)
 	app.Post("/reports", handlers.CreateReport)
 
-	app.Get("/captain", handlers.HelloCap)
+	app.Get("/captain", handlers.ListCaptain)
+	app.Get("/hellocap", handlers.HelloCap)
 }

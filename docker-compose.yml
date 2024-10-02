@@ -9,8 +9,9 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/src/app/
-    working_dir: /usr/src/app/backend/cmd #this saved it
-    command: air
+    working_dir: /usr/src/app/backend
+
+    command: go run ./cmd/main.go -b 0.0.0.0
   db:
     image: postgres:alpine
     environment:
